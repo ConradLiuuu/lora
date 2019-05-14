@@ -57,14 +57,26 @@ while True:
   print("\n[8]:FunLora_6_read")
   #data=LoRa.FunLora_6_read();
   data=LoRa.FunLora_6_readPureData()
+  
+  #print(str_data)
+  
   if len(data) != 0:
     #print(chr(data[0]))
-    print("data = %s%s%s " % (chr(data[0]),chr(data[1]),chr(data[2])))
+    str_data = []
+    #print((data))
+    for i in data:
+      if i >= 48 and i <= 57:
+        str_data.append(chr(i))
+    #print(str_data)
+    str_data2 = "".join(str_data)
+    print(int(str_data2))
+    
+    #print("data = %s%s%s " % (chr(data[0]),chr(data[1]),chr(data[2])))
   #print data
   #if LoRa.Fun_ArrayIsSame(data, lastData)==False:
   #lastData=LoRa.Fun_ArrayCopy(data)
   #print ','.join('{:02x}'.format(x) for x in data) 
-  time.sleep(0.5)
+  #time.sleep(0.5)
 
 
 # 關閉
