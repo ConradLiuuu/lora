@@ -16,7 +16,7 @@ GPIO.setup(24,GPIO.OUT)
 
 # 打開Port
 print("Open Port, FunLora_init()")
-ser=LoRa.FunLora_initByName("/dev/ttyUSB0")
+ser=LoRa.FunLora_initByName("/dev/ttyACM0")
 
 #讀取F/W版本及Chip ID
 print("Get Firmware Version, FunLora_0_GetChipID()")
@@ -38,9 +38,7 @@ lastData=[]
 while True:
   #讀取資料
   print("\n[8]:FunLora_6_read")
-  #data=LoRa.FunLora_6_read();
   data=LoRa.FunLora_6_readPureData()
-  #if LoRa.Fun_ArrayIsSame(data, lastData)==False:
   #print chr(data[0])
   print data[0]
   GPIO.output(23,0)
@@ -48,7 +46,6 @@ while True:
 
   if data[0] == 97:
     #os.system('rostopic pub -1 /qq std_msgs/Int64 66')
-    #os.system('rostopic list')
     pub = rospy.Publisher('qq', Int64, queue_size = 10)
     rate = rospy.Rate(10)
     num = 666
@@ -74,10 +71,7 @@ while True:
     #print data[0:len(data)]
     for i in range (1,len(data)):
       print chr(data[i])
-  #for i in range (1,len(data)):
-    #print chr(data[i])
-  #lastData=LoRa.Fun_ArrayCopy(data)
-  #print ','.join('{:02x}'.format(x) for x in data) 
+
   time.sleep(1)
 
 

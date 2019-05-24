@@ -23,7 +23,13 @@ import serial
 LoRa2 = ifroglab.LoRa()
 
 
-
+# 找最後一個USB  UART 設備
+'''
+print("List All Ports, serial_ports()")
+serPorts=LoRa2.serial_allPorts()
+print(serPorts)
+portName=serPorts[-1]
+'''
 
 
 # 打開Port
@@ -40,18 +46,20 @@ LoRa2.FunLora_0_GetChipID()
 # 重置 & 初始化
 print("Init, FunLora_1_Init()")
 LoRa2.FunLora_1_Init()
-
 # 讀取設定狀態
 print("\n[4]:FunLora_2_ReadSetup");
 LoRa2.FunLora_2_ReadSetup();
 
-
-cmd=input("Send cmd is :")
-
+# 設定寫入和頻段
 LoRa2.FunLora_3_TX();
-LoRa2.FunLora_5_write16bytesArrayString(str(cmd));
-print(cmd)
-#time.sleep(1)
+
+counter = 0
+while True:
+    #print("\n[10]:FunLora_5_write16bytesArray")
+    LoRa2.FunLora_5_write16bytesArrayString(str(counter));
+    counter=counter+1
+    print(counter)
+    time.sleep(1)
 
 # 關閉
 LoRa2.FunLora_close()
