@@ -17,12 +17,8 @@ ap-Lib-5-lora-LoopWrite.py
 """
 import ifroglab
 import time
-import RPi.GPIO as GPIO 
 
 LoRa = ifroglab.LoRa()
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18,GPIO.IN)
 
 # 打開Port
 print("Open Port, FunLora_init()")
@@ -46,16 +42,15 @@ LoRa.debug=False
 
 while True:
     ## Read data
-    pin2 = GPIO.input(18)
+
     #print("pin2 = ",pin2)
     #print("\n[8]:FunLora_6_read")
 
-    if pin2 == 1: ## Read new data
-        #print("pin2 HIGH")
-        data=LoRa.FunLora_6_readPureData()
-        if len(data) != 0:
-            print(chr(data[0]))
-        time.sleep(0.5)
+
+    data=LoRa.FunLora_6_readPureData()
+    if len(data) != 0:
+        print(chr(data[0]))
+    time.sleep(0.5)
 
 # 關閉
 LoRa.FunLora_close() 
